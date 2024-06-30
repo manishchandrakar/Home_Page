@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .category-banner {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .category-banner:hover {
+            transform: scale(1.05);
+        }
+        .product-card {
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .product-card img {
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .product-card:hover img {
+            transform: scale(1.1);
+        }
+        .card-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        .card-text {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .size-options {
+            font-size: 0.8rem;
+            color: #6c757d;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .size-option {
+            cursor: pointer;
+            padding: 2px 5px;
+            border: 1px solid #6c757d;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+        }
+        .size-option:hover, .size-option.selected {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .btn-add-to-cart {
+            background-color: #28a745;
+            border: none;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .btn-add-to-cart:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 2px;
+            background-color: #007bff;
+            width: 50%;
+            margin: auto;
+        }
+        #cart-preview {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 10px;
+            display: none;
+        }
+        #cart-preview.show {
+            display: block;
+        }
+        #cart-count {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id=""> 
+    <div class="container my-5">
+        <!-- Category Banners -->
+        <div class="row mb-5">
+            <div class="col-md-4 mb-3">
+                <div class="category-banner" style="background-image: url('https://via.placeholder.com/400x200/FF0000/FFFFFF?text=NEW+SEASON');">
+                    NEW SEASON
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="category-banner" style="background-image: url('https://via.placeholder.com/400x200/F5DEB3/000000?text=BASICS');">
+                    BASICS
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="category-banner" style="background-image: url('https://via.placeholder.com/400x200/008000/FFFFFF?text=ECO+CONSCIOUS');">
+                    ECO CONSCIOUS
+                </div>
+            </div>
+        </div>
+
+        <!-- New Arrivals Section -->
+        <h2 class="text-center mb-5 section-title">NEW ARRIVALS</h2>
+        
+        <!-- Product Grid -->
+        <div class="row">
+            <!-- Product 1 -->
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card product-card">
+                    <img src="https://cdn.shopify.com/s/files/1/0607/5813/0945/products/1.0043_335ae4c9-5960-4262-9667-edfe91a2a10c_700x.jpg" class="card-img-top" alt="Product 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Elegant Summer Dress</h5>
+                        <p class="card-text">$49.99</p>
+                        <div class="size-options">
+                            <span class="size-option">XS</span>
+                            <span class="size-option">S</span>
+                            <span class="size-option">M</span>
+                            <span class="size-option">L</span>
+                            <span class="size-option">XL</span>
+                        </div>
+                        <button class="btn btn-add-to-cart" onclick="addToCart('Elegant Summer Dress', 49.99)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card product-card">
+                    <img src="https://img.shopstyle-cdn.com/sim/91/51/915188482d90be2bef423bcaf22277b3_best/topshop-textured-taffeta-mini-slip-dress-in-black.jpg" class="card-img-top" alt="Product 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Casual Denim Jacket</h5>
+                        <p class="card-text">$79.99</p>
+                        <div class="size-options">
+                            <span class="size-option">S</span>
+                            <span class="size-option">M</span>
+                            <span class="size-option">L</span>
+                            <span class="size-option">XL</span>
+                        </div>
+                        <button class="btn btn-add-to-cart" onclick="addToCart('Casual Denim Jacket', 79.99)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card product-card">
+                    <img src="https://2.bp.blogspot.com/_3kbButHke0s/S-_N2yBxATI/AAAAAAAAD1k/Ts-rAI4TrtI/s1600/Candice_55.jpg" class="card-img-top" alt="Product 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Floral Print Blouse</h5>
+                        <p class="card-text">$39.99</p>
+                        <div class="size-options">
+                            <span class="size-option">XS</span>
+                            <span class="size-option">S</span>
+                            <span class="size-option">M</span>
+                            <span class="size-option">L</span>
+                        </div>
+                        <button class="btn btn-add-to-cart" onclick="addToCart('Floral Print Blouse', 39.99)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 4 -->
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card product-card">
+                    <img src="https://image.geeko.ltd/original/d910c1a2-4e66-471f-9b0e-86926851aad9" class="card-img-top" alt="Product 4">
+                    <div class="card-body">
+                        <h5 class="card-title">Classic White Tee</h5>
+                        <p class="card-text">$24.99</p>
+                        <div class="size-options">
+                            <span class="size-option">XS</span>
+                            <span class="size-option">S</span>
+                            <span class="size-option">M</span>
+                            <span class="size-option">L</span>
+                            <span class="size-option">XL</span>
+                        </div>
+                        <button class="btn btn-add-to-cart" onclick="addToCart('Classic White Tee', 24.99)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+
+             <!-- Product 5 -->
+             <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card product-card">
+                    <img src="https://www-s.mlo.me/upen/v/2021/202106/20210619/202106191724415699336.jpg" class="card-img-top" alt="Product 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Elegant Summer Dress</h5>
+                        <p class="card-text">$49.99</p>
+                        <div class="size-options">
+                            <span class="size-option">XS</span>
+                            <span class="size-option">S</span>
+                            <span class="size-option">M</span>
+                            <span class="size-option">L</span>
+                            <span class="size-option">XL</span>
+                        </div>
+                        <button class="btn btn-add-to-cart" onclick="addToCart('Elegant Summer Dress', 49.99)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 6 -->
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card product-card">
+                    <img src="https://data.1freewallpapers.com/detail/dressed-as-a-princess.jpg" class="card-img-top" alt="Product 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Casual Denim Jacket</h5>
+                        <p class="card-text">$79.99</p>
+                        <div class="size-options">
+                            <span class="size-option">S</span>
+                            <span class="size-option">M</span>
+                            <span class="size-option">L</span>
+                            <span class="size-option">XL</span>
+                        </div>
+                        <button class="btn btn-add-to-cart" onclick="addToCart('Casual Denim Jacket', 79.99)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Product 7 -->
+             <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card product-card">
+                    <img src="https://avatars.mds.yandex.net/i?id=ce87ff786c0842442864ae4815e133101fcb26e3-9838067-images-thumbs&ref=rim&n=33&w=250&h=250" class="card-img-top" alt="Product 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Elegant Summer Dress</h5>
+                        <p class="card-text">$49.99</p>
+                        <div class="size-options">
+                            <span class="size-option">XS</span>
+                            <span class="size-option">S</span>
+                            <span class="size-option">M</span>
+                            <span class="size-option">L</span>
+                            <span class="size-option">XL</span>
+                        </div>
+                        <button class="btn btn-add-to-cart" onclick="addToCart('Elegant Summer Dress', 49.99)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 8 -->
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card product-card">
+                    <img src="https://64.media.tumblr.com/5131085f2cf3d8eb3628ce15744fa69f/d202da7540f60328-50/s1280x1920/52b93dc776c737fc68de0f34ae3b553fe844414f.jpg" class="card-img-top" alt="Product 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Casual Denim Jacket</h5>
+                        <p class="card-text">$79.99</p>
+                        <div class="size-options">
+                            <span class="size-option">S</span>
+                            <span class="size-option">M</span>
+                            <span class="size-option">L</span>
+                            <span class="size-option">XL</span>
+                        </div>
+                        <button class="btn btn-add-to-cart" onclick="addToCart('Casual Denim Jacket', 79.99)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+    <div id="cart-count">0</div>
+    <div id="cart-preview">
+        <h4>Cart</h4>
+        <ul id="cart-items"></ul>
+        <p>Total: $<span id="cart-total">0</span></p>
+    </div>
+
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let cart = [];
+        let cartTotal = 0;
+
+        function addToCart(name, price) {
+            cart.push({ name, price });
+            cartTotal += price;
+            updateCartPreview();
+        }
+
+        function updateCartPreview() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotalElement = document.getElementById('cart-total');
+
+            cartCount.textContent = cart.length;
+            cartItems.innerHTML = '';
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+                cartItems.appendChild(li);
+            });
+            cartTotalElement.textContent = cartTotal.toFixed(2);
+        }
+
+        document.getElementById('cart-count').addEventListener('click', function() {
+            document.getElementById('cart-preview').classList.toggle('show');
+        });
+
+        document.querySelectorAll('.size-option').forEach(option => {
+            option.addEventListener('click', function() {
+                this.parentElement.querySelectorAll('.size-option').forEach(el => el.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html>
